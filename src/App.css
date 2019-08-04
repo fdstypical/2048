@@ -1,0 +1,70 @@
+#root{
+	width:720px;
+	margin:20px auto;
+}
+.game-field{
+	width:700px;
+	height:700px;
+	background:#bbada0;
+	border-radius:10px;
+	display:flex;
+	flex-wrap:wrap;
+	padding:10px;
+	position:relative;
+}
+.map-cell{
+	width:165px;
+	height:165px;
+	background:#ccc0b3;
+	margin:5px;
+	border-radius:5px;
+}
+.game-cell{
+	width:165px;
+	height:165px;
+	border-radius:5px;
+	display:flex;
+	align-items:center;
+	justify-content:center;
+	font-size:40px;
+	font-weight:900;
+	position:absolute;
+	transition:all 0.2s ease;
+}
+.header-wrap{
+	width:660px;
+	display:flex;
+	justify-content:space-between;
+	margin:10px auto 15px auto;
+}
+.score{
+	width:120px;
+	height:60px;
+	background: #bbada0;
+	border-radius:10px;
+}
+.score-title{
+	margin:4px 0 0 0;
+	text-align:center;
+	color:#ebe0d7;
+	font-size:18px;
+}
+.score-value{
+	text-align:center;
+	margin:0;
+	font-size:20px;
+	color:#ffffff;
+	font-weight:900;
+}
+.new-game-btn{
+	text-align:center;
+	width:130px;
+	height:50px;
+	align-self:flex-end;
+	background:#8f7a66;
+	color:#f9f6f2;
+	font-size:19px;
+	outline:none;
+	border:none;
+	border-radius:5px;
+}

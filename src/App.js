@@ -10,6 +10,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       map: initialCreate(),
+      mapChange: false
     };
   }
 
@@ -36,11 +37,16 @@ class App extends React.Component {
         break;
     }
 
-    this.setState({map:newMap});
+    this.setState({
+      map: newMap.map,
+      mapChange: newMap.mapChange
+    });
 
-    setTimeout( () => {
-      this.setState({map:create(this.state.map)});
-    },150)
+    if(this.state.mapChange){
+      setTimeout( () => {
+        this.setState({map:create(this.state.map)});
+      },150);
+    }
   }
 
   componentWillMount(){

@@ -4,7 +4,8 @@ function checkResult(direction, cells) {
 	// abstract matrix
 	const matrix = Array.from(new Array(4), () => Array.from(new Array(4), () => 0));
 
-	let newMap;
+	let newMap,
+		mapChange;
 
 	cells.map( item => {
 		matrix[item.y][item.x] = item;
@@ -15,6 +16,12 @@ function checkResult(direction, cells) {
 			for(let x=0; x <= 3; x++){
 				if(matrix[y][x] === 0) continue;
 				newMap = moveCell(matrix,x,y,direction);
+
+				// did the map change? 
+				if(newMap.cellChanged) {
+					delete newMap.cellChanged;
+					mapChange = true;
+				}
 			}
 		}
 	}
@@ -24,15 +31,24 @@ function checkResult(direction, cells) {
 			for(let x=3; x >= 0; x--){
 				if(matrix[y][x] === 0) continue;
 				newMap = moveCell(matrix,x,y,direction);
+
+				// did the map change?
+				if(newMap.cellChanged) {
+					delete newMap.cellChanged;
+					mapChange = true;
+				}
 			}
 		}
 	}
 
-	newMap.forEach( item => {
+	newMap.map.forEach( item => {
 		delete item.increase;
 	})
-
-	return newMap;
+	
+	return {
+		map:newMap.map,
+		mapChange
+	};
 }
 
 export default checkResult;

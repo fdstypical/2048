@@ -1,6 +1,7 @@
 function moveCell(matrix, x, y,direction) {
 	let map = [],
-		nextLine;
+		nextLine,
+		cellChanged = null; // need to understand whether to add a new cell
 
 	switch(direction){
 
@@ -12,6 +13,8 @@ function moveCell(matrix, x, y,direction) {
 				if(matrix[y][nextLine] === 0){
 					matrix[y][nextLine] = matrix[y][nextLine+1];
 					matrix[y][nextLine+1] = 0;
+
+					cellChanged = true;
 				}
 
 				else if(matrix[y][nextLine] !== 0 &&
@@ -24,6 +27,8 @@ function moveCell(matrix, x, y,direction) {
 
 					matrix[y][nextLine+1] = 0;
 					
+					cellChanged = true;
+
 					break;
 				}
 
@@ -40,6 +45,8 @@ function moveCell(matrix, x, y,direction) {
 				if(matrix[nextLine][x] === 0){
 					matrix[nextLine][x] = matrix[nextLine+1][x];
 					matrix[nextLine+1][x] = 0;
+
+					cellChanged = true;
 				}
 	
 				else if(matrix[nextLine][x] !== 0 &&
@@ -51,6 +58,8 @@ function moveCell(matrix, x, y,direction) {
 					matrix[nextLine][x].increase = true;
 					
 					matrix[nextLine+1][x] = 0;
+
+					cellChanged = true;
 
 					break;
 				}
@@ -71,6 +80,8 @@ function moveCell(matrix, x, y,direction) {
 				if(matrix[nextLine][x] === 0){
 					matrix[nextLine][x] = matrix[nextLine-1][x];
 					matrix[nextLine-1][x] = 0;
+
+					cellChanged = true;
 				}
 	
 				else if(matrix[nextLine][x] !== 0 &&
@@ -82,6 +93,8 @@ function moveCell(matrix, x, y,direction) {
 					matrix[nextLine][x].increase = true;
 					
 					matrix[nextLine-1][x] = 0;
+
+					cellChanged = true;
 
 					break;
 				}
@@ -102,6 +115,8 @@ function moveCell(matrix, x, y,direction) {
 				if(matrix[y][nextLine] === 0){
 					matrix[y][nextLine] = matrix[y][nextLine-1];
 					matrix[y][nextLine-1] = 0;
+
+					cellChanged = true;
 				}
 
 				else if(matrix[y][nextLine] !== 0 &&
@@ -113,6 +128,8 @@ function moveCell(matrix, x, y,direction) {
 					matrix[y][nextLine].increase = true;
 					
 					matrix[y][nextLine-1] = 0;
+
+					cellChanged = true;
 
 					break;
 				}
@@ -135,11 +152,12 @@ function moveCell(matrix, x, y,direction) {
 
 			matrix[y][x].x = x;
 			matrix[y][x].y = y;
+
 			map.push(matrix[y][x]);
 		}
 	}
-	console.log(matrix)
-	return map;
+
+	return {map, cellChanged};
 }
 
 export default moveCell;

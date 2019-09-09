@@ -5,7 +5,7 @@ function checkResult(direction, cells) {
 	const matrix = Array.from(new Array(4), () => Array.from(new Array(4), () => 0));
 
 	let newMap,
-		mapChange;
+		mapChange = false;
 
 	cells.map( item => {
 		matrix[item.y][item.x] = item;

@@ -36,15 +36,9 @@ function create(cells) {
   const filledCoords = new Set()
 
   cells.forEach(cell => {
-    filledCoords.add(cell.x * 4 + cell.y)
+    filledCoords.add(cell.x * 4 + cell.y) // unique Set item
   })
-
-  if (filledCoords.size === 16){
-    alert('GAME OVER!');
-    window.location.reload();
-    return;
-  }
-
+  
   let x
   let y
   let startSize = filledCoords.size

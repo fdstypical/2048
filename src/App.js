@@ -4,13 +4,16 @@ import Field from './field';
 import {initialCreate, create} from './logic/create';
 import checkResult from './logic/checkResult';
 import Header from './header';
+import checkLose from './logic/checkLose';
+import LoseModal from './loseModal';
 
 class App extends React.Component {
   constructor(props){
     super(props);
     this.state = {
       map: initialCreate(),
-      mapChange: false
+      mapChange: false,
+      loseGame: false,
     };
   }
 
@@ -43,10 +46,15 @@ class App extends React.Component {
     });
 
     if(this.state.mapChange){
-      setTimeout( () => {
-        this.setState({map:create(this.state.map)});
-      },150);
+
+      this.setState({map:create(this.state.map)});
+
+      // check lose
+      if(this.state.map.length === 16){
+        this.setState({loseGame: checkLose(this.state.map)}); // check lose!
+      }
     }
+    console.log(this.state)
   }
 
   componentWillMount(){
@@ -60,7 +68,10 @@ class App extends React.Component {
   // new game reloader
 
   newGame = () => {
-    this.setState({map:initialCreate()});
+    this.setState({
+      map:initialCreate(),
+      loseGame: false
+    });
   }
 
   render(){
@@ -73,8 +84,13 @@ class App extends React.Component {
         <Field 
           map={this.state.map}
         />
+
+        { 
+          // lose modal... ;)
+          this.state.loseGame && <LoseModal tryAgain={this.newGame}/>
+        }
       </div>
-    );
+    )
   }
 }
 

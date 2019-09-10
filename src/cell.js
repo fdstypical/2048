@@ -14,9 +14,13 @@ class Cell extends React.Component {
 
 	componentDidMount(){
 		// need to delay display cell... 
-		setTimeout( () => {
+		this.timerId = setTimeout( () => {
 			this.setState({showCell:true});
 		},210)
+	}
+
+	componentWillUnmount(){
+		clearTimeout(this.timerId);
 	}
 
 	render() {

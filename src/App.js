@@ -7,6 +7,17 @@ import Header from './header';
 import checkLose from './logic/checkLose';
 import LoseModal from './loseModal';
 
+// react-swipeable
+import { useSwipeable, Swipeable } from 'react-swipeable'
+
+const config = {
+  delta: 10,                             // min distance(px) before a swipe starts
+  preventDefaultTouchmoveEvent: true,   // preventDefault on touchmove, *See Details*
+  trackTouch: true,                      // track touch input
+  trackMouse: false,                     // track mouse input
+  rotationAngle: 0,                      // set a rotation angle
+}
+
 class App extends React.Component {
   constructor(props){
     super(props);
@@ -18,22 +29,29 @@ class App extends React.Component {
   }
 
   handleMove = (e) => {
+
     let map = this.state.map,
-        newMap;
+        newMap,
+        direction;
 
-    switch(e.keyCode){
+    if(e.keyCode === 37 || e.dir === 'Left') direction = 'left';
+    if(e.keyCode === 38 || e.dir === 'Up') direction = 'top';
+    if(e.keyCode === 39 || e.dir === 'Right') direction = 'right';
+    if(e.keyCode === 40 || e.dir === 'Down') direction = 'bottom';
 
-      case 37:
-        newMap = checkResult('left', map);
+    switch(direction){
+
+      case 'left':
+        newMap = checkResult(direction , map);
         break;
-      case 38:
-        newMap = checkResult('top', map);
+      case 'top':
+        newMap = checkResult(direction , map);
         break;
-      case 39:
-        newMap = checkResult('right', map);
+      case 'right':
+        newMap = checkResult(direction , map);
         break;
-      case 40:
-        newMap = checkResult('bottom', map);
+      case 'bottom':
+        newMap = checkResult(direction , map);
         break;
       default:
         return;
@@ -54,7 +72,6 @@ class App extends React.Component {
         this.setState({loseGame: checkLose(this.state.map)}); // check lose!
       }
     }
-    console.log(this.state)
   }
 
   componentWillMount(){
@@ -76,20 +93,22 @@ class App extends React.Component {
 
   render(){
     return (
-      <div>
-        <Header 
-          score = {this.state.map}
-          handleNewGame = {this.newGame}
-        />
-        <Field 
-          map={this.state.map}
-        />
+      <Swipeable onSwiped={(eventData) => this.handleMove(eventData)} {...config} >
+        <div className = 'app-wrap'>
+          <Header 
+            score = {this.state.map}
+            handleNewGame = {this.newGame}
+          />
+          <Field 
+            map={this.state.map}
+          />
 
-        { 
-          // lose modal... ;)
-          this.state.loseGame && <LoseModal tryAgain={this.newGame}/>
-        }
-      </div>
+          { 
+            // lose modal... ;)
+            this.state.loseGame && <LoseModal tryAgain={this.newGame}/>
+          }
+        </div>
+      </Swipeable>
     )
   }
 }

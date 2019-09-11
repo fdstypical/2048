@@ -1,6 +1,6 @@
 import React from 'react';
 import calculateColor from './logic/calculateColor';
-
+import adaptiveCellSize from './logic/adaptiveScreen'
 
 class Cell extends React.Component {
 
@@ -26,8 +26,8 @@ class Cell extends React.Component {
 	render() {
 		if(this.state.width === 165 && this.state.height === 165) clearInterval(this.timerId)
 
-		let left = 15 + (this.props.x * 165) + (this.props.x * 10) + 'px',
-			top = 15 + (this.props.y * 165) + (this.props.y * 10) + 'px',
+		let left = 15 + (this.props.x * adaptiveCellSize) + (this.props.x * 10) + 'px',
+			top = 15 + (this.props.y * adaptiveCellSize) + (this.props.y * 10) + 'px',
 			background = calculateColor(this.props.value),
 			color,
 			display = this.state.showCell ? 'flex' : 'none';

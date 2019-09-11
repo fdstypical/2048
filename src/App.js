@@ -94,7 +94,7 @@ class App extends React.Component {
   render(){
     return (
       <Swipeable onSwiped={(eventData) => this.handleMove(eventData)} {...config} >
-        <div className = 'app-wrap'>
+        <div className='app-wrap'>
           <Header 
             score = {this.state.map}
             handleNewGame = {this.newGame}
